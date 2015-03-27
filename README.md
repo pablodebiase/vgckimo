@@ -1,12 +1,12 @@
 VGCKIMO v2014.11.10
 =======
 Voltage-Gated Ion Channels Kinetic Modeling For Whole-Cell Voltage-Clamp Recordings
-********
+---------------------------------------------------------------
 Developed at Sergei Noskov's Lab (http://noskovlab.com)
 ---------------------------------------------------------------
 Authors: 
-  -Pablo M. De Biase (pablo.debiase@ucalgary.ca)
-  -Laura L. Perissinotti (laura.perissinotti@ucalgary.ca)
+  *Pablo M. De Biase (pablo.debiase@ucalgary.ca)
+  *Laura L. Perissinotti (laura.perissinotti@ucalgary.ca)
 ---------------------------------------------------------------
 If you use this program please site us:
 
