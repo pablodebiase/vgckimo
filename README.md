@@ -2,11 +2,11 @@
 -----------------------
 *Voltage-Gated Ion Channels Kinetic Modeling For Whole-Cell Voltage-Clamp Recordings*
 
+Developed at [Sergei Noskov's Lab](http://noskovlab.com)
+
 Authors: 
 - Pablo M. De Biase (pablo.debiase@ucalgary.ca)
 - Laura L. Perissinotti (laura.perissinotti@ucalgary.ca)
-
-Developed at Sergei Noskov's Lab (http://noskovlab.com)
 
 If you use this program please site us:
 
