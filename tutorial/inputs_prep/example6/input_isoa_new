@@ -1,0 +1,122 @@
+2                           #model
+0.0                         #Cell I  [ 0.0 ]
+0.0                         #Cell C2 [ 0.0 ]
+1.0                         #Cell C3 [ 1.0 ]
+0.0                         #Cell O  [ 0.0 ]
+16                          #Number of Variables to Fit [14]
+1                           #Initial values
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+y                           #Keep all Variables free (y/n)? [y]
+y                           #Enable restrains for free variables (y/n)? [n]
+0.8                         #lower boundary [-inf]
+2                           #upper boundary [+inf]
+0.8
+2
+0.8
+2
+0.8
+2
+0.8
+2
+0.8
+2
+0.8
+2
+0.8
+2
+0.8
+2
+0.8
+2
+0.1
+10
+0.1
+10
+0.1
+10
+0.1
+10
+0.1 
+1000
+0.1
+1000
+4                           #Number of protocols to use
+0                           #SSA  
+data_cho_isoa.txt           #Experimental Data file name
+0.005                       #time step//Input parameter for SSA//range of voltages for preP1 (V2)are read from dataSSA.txt
+10000                       #waittime (t1)
+1000                        #Input parameter for SSA, preP1(t2) (ms)
+1000                        #P1 time (t3)
+500                         #P2 time (t4)
+-80                         #Resting potential (V1)
+-80                         #PreP1 voltage (V2)
+0                           #P1 (V3) from file
+-60                         #P2 voltage (V4)
+0                           #Drug
+1                           #weight
+0                           #SSI
+data_cho_ssi_isoa.dat     #Experimental Data file name
+0.005                       #time step//Input parameter for SSA//range of voltages for preP1 (V2)are read from dataSSA.txt
+10000                       #waittime (t1)
+1000                        #Input parameter for SSA, preP1(t2) (ms)
+10                          #P1 time (t3)
+1000                        #P2 time (t4)
+-80                         #Resting potential (V1)
+40                          #PreP1 voltage (V2)
+0                           #P1 (V3) from file
+40                          #P2 voltage (V4)
+0                           #Drug
+1                           #weight
+1                           #Activation tau
+act_cho_isoa.txt            #Experimental Data file name
+0.005                       #time step//Input parameter for ACT//
+10000                       #waittime (t1)
+1000                        #Input parameter for dataACT.txt, P2 time (ms):t2 peak measurement
+500                         #P2 time (extra time:t3)
+500                         #P2 time (extra time:t4)
+-80                         #Resting potential (V1)
+40                          #P1 voltage (variable length:V2)
+-60                         #P2 voltage (V3,P2 time)
+-60                         #P2 voltage (V4,P2 extra time) 
+0                           #Drug
+1                           #weight
+4                           #DEACTdouble
+dataDEACdouble_isoa.txt     #Experimental Data file name
+0.005                       #time step//Input parameter for DEACTable//
+10000                       #waittime (t1)
+1000                        #Input parameter for DEACTdouble, P1:t2 (ms), range of voltages for P3(V4) are read from dataDEACT.txt
+5                           #P2 time (t3)
+4000                        #P3 time (t4)
+-80                         #Resting potential (V1)
+40                          #PreP1 voltage (V2)
+-120                        #P2 voltage (V3)
+-80                         #P3 voltage (V4) from input table
+0                           #Drug
+1                           #weight
+0.95                        #Relation to peak
+100                         #Number of points
+off                         #Warnings
+off                         #Debug Errors (on/off) [off]
+on                          #Convergence Analysis (on/off) [on]
+on                          #Optimize (on/off) [on] 
+on                          #initial values
+on                          #generate extra data
+on                          #gaussian for initial values
+0.1                         #sd
+1000                        #number of tries
+0.00001                     #tolerance
+0.1                         #size move for minimization

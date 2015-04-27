@@ -1,0 +1,350 @@
+********************************************************************************************************************************************
+*  VGC-KiMo - Voltage-Gated Ion Channels Kinetic Modeling For Whole-Cell Voltage-Clamp Recordings                                           *
+*                                                                                                                                          *
+*  Copyright (C) 2014-2015 Laura L. Perissinotti (perissinotti@gmail.com) & Pablo M. De Biase (pablodebiase@gmail.com)                     *
+*                                                                                                                                          *
+*  This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as            *
+*  published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.                      *
+*                                                                                                                                          *
+*  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of          *
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.                              *
+*                                                                                                                                          *
+*  You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.  *
+********************************************************************************************************************************************
+
+        _________________________________________
+       |                                         |
+       | VGC-KiMo v2015.04.23 Documentation File | 
+       |_________________________________________|
+
+
+  VGC-KiMo - Voltage-Gated Ion Channels Kinetic Modeling For Whole-Cell Voltage-Clamp Recordings
+  __________________________________________________________________________________
+
+  VGC-KiMo software allows for kinetic modeling of voltage-gated ion channels using whole cell voltage-clamp data. Sets of data from various experimental voltage protocols are analyzed simultaneously and fitted to Markov chain models. The minimization procedure allows to assess the right model and the corresponding kinetic parameters that describe the channel kinetics. In the current form, the source code includes a Markov formulation for the Kv11.1 or hERG K+ channel. Any other ion channel could be added to the source code in addition to the current one, different Markov models and other voltage protocols.
+
+
+REFERENCES
+----------
+  1) Kinetic Model for NS1643 Drug Activation of WT and L529I Variants of Kv11.1 (hERG1) Potassium Channel
+     Laura L Perissinotti, Jiqing Guo, Pablo M De Biase, Colleen E Clancy, Henry J Duff, Sergei Y Noskov
+     Biophysical Journal (Impact Factor: 3.83). 03/2015; 108(6):1414-24. 
+     DOI: 10.1016/j.bpj.2014.12.056
+
+
+WARNING
+-------
+   The program has not been used in numerous situations and caution
+   should be the rule. All problems should be reported to Pablo De Biase or Laura Perissinotti
+
+
+BUGS
+----
+   Report bugs or suggest new features or improvements to Pablo M. De Biase at pablodebiase@gmail.com or to Laura L. Perissinotti at perissinotti@gmail.com
+
+
+AUTHORS
+-------
+   . Pablo M. De Biase at pablodebiase@gmail.com
+   . Laura L. Perissinotti at perissinotti@gmail.com
+
+
+NOTE
+----
+   All following instructions are designed for Linux
+
+
+INSTALLATION
+------------
+   . Download VGCKIMO from https://github.com/pablodebiase/vgckimo, https://github.com/perissinotti/vgckimo or from http://noskovlab.com
+       $ wget http://noskovlab.com/downloads/vgckimo_v2015.04.23.tar.bz2
+   . Untar
+       $ tar xvf vgckimo_v2015.04.23.tar.bz2
+   . Compile
+       $ cd src
+       $ ./vgckimo.make         # For GNU Compilers
+       $ ./vgckimo.make intel   # For Intel Compilers
+
+
+USAGE
+-----
+  VGCKIMO is a interactive executable. It can be executed using an input file that answers all VGCKIMO prompts or answer the prompts on the fly.
+  For every question, information between [] is the default option that can be used by answering each prompt with an empty line. This program has OpenMP parallel capabilities and can use many cores. 
+
+  Example:
+    $ ./vgckimo < input > output
+     or
+    $ OMP_NUM_THREADS=4 ~/src/vgckimo-intel < input > output  # this will use 4 cores
+
+        Note that there is not much higher performance beyond 8 nodes.
+
+
+FEATURES
+--------
+
+
+********************
+***Current Models***
+********************
+
+> "Current Model   (1-16) [1]: "
+
+Two kinetic mechanisms are currently implemented for IKr current (hERG K+), mechanisms #1 and #2. Mechanism 1 corresponds to the one proposed by Wang, Lu, Morales, Strauss and Rasmusson (WLMSR) (see Wang et al. J Physiol (1997) 502:45-60). Mechanism 2 corresponds to the one proposed by Mazhari, Greenstein, Winslow, Marban and Nuss (MGWMN) (see Mazhari et al. Circ. Res. (2001)89:33-38). For the performance of these two mechanims and others see Bett G. C. L. et al Biophys. J. 2011, 101:631-642. Initial values for mechanism 1 were taken from Fink et al.Prog. Biophys. Mol. Biol. (2008)96:357-376. 
+
+> "Initial Parameters for Current Model: "
+If 1 is assigned, the initial values correspond to the ones published for the each mechanism and implemented in the code. For mechanism 1, parameters were taken from Fink et al., Prog. Biophys. Mol. Biol. (2008)96:357-376. Parameters for mechanism two are the ones originally published by Mazhari et al.(see table 1 in Bett G. C. L. et al Biophys. J. 2011, 101:631-642).
+
+
+*****************
+*** Variables ***
+*****************
+
+Each current model has its own number of variables to fit. You need to choose the initial values for each variable.
+
+> "Enter Initial Value for 1 [1.0] = "
+
+You can choose whether to optimize all variables or keep some fixed.
+
+> "Keep all Variables free (y/n)? [y]: "
+
+If you choose to keep some fixed, the program will ask which to keep fixed
+
+> "Variable #1 fixed (on/off) [off]: "
+
+You have the option to set restrains for each variable that is going to be optimized. That means that you can set an upper and/or lower boundary. 
++inf and -inf are the default option for upper and lower limits, respectively.
+
+> "Enable restrains for free variables (y/n)? [n]: " y
+
+if "yes" it will ask:
+
+> "Variable #1 :     Lower boundary [-inf] =       |      Upper boundary [+inf] = "
+
+
+*************************
+*** Voltage Protocols ***
+*************************
+
+There are actually 7 protocols implemented. Protocols consist of predefined specific sequence of constant voltage with specific duration. Each protocol type has particular characteristic that will be described below.
+You can select any number of protocol desired and combine them with different protocol types.
+
+> "Number of Protocols to use: "
+
+See tutorial for examples.
+
+> "Protocol Types: "
+>  0.- SSA-I"       
+>  1.- ACT"         
+>  2.- BLOCK"       
+>  3.- DRUG"        
+>  4.- DEACdouble"  
+>  5.- DEACTable"   
+>  6.- INAC03"      
+
+The program will ask the parameters for each protocol. Here an example of response for each :
+
+> "Protocol #0"
+
+Next check which protocol type you wish to use:
+
+> "   Set type number:  " 0
+
+Select the input file from which experimental data will be read. Each protocol type may have different information to be read from this files and may vary in number of columns. There are no limits for the number of lines.
+
+> "   Experimental Data Filename: " ssa.dat
+
+The time step for integration is prompt first. The default value is 0.01 ms.
+> "    dt = "
+
+The duration of four (or more) cycles of potential are asked. Time is usually in ms and depends on the current model:
+
+> "    t1 = "
+> "    t2 = "
+> "    t3 = "
+> "    t4 = "
+
+The constant voltage for each cycle is prompt later:
+
+> "    v1 = "
+> "    v2 = "
+> "    v3 = "
+> "    v4 = "
+
+Concentration of drug is asked. This is only relevant if the effect of the drug is being modeled. For current model 2 or model 1 is ignored.
+
+> "  drug = "
+
+The weight given to the protocol in the cost function. The default value is 1.0.
+
+> "weight = "
+
+
+For more details on protocols see protocols.pdf file
+
+======= Protocol 0 ========
+Consist of 4 pulses of potential. It can be used to simulate SSA or SSI data. V3 is read from the external file, Ipeak is measured at V4 and Ipeak/Imax is plotted against V3.
+
+
+======= Protocol 1 ========
+This is the envelope of tails protocol commonly used to study activation kinetics. V2 has different time(t2) durations. Ipeak is measured at V3 and Normalized Ipeak is plotted against t2. Time t2 is read from external file.  
+ 
+
+======= Protocol 2 ========
+This protocol is commonly used to study the Drug concentration [Drug] effect at different voltages and build the Hill’s Plot to derive the IC50 value. [Drug] is read from the external file, Ipeak is measured at V3 and Ipeak/Imax is plotted against [Drug].
+ 
+
+======= Protocol 3 ========
+This protocol is used to study the time course of drug block. For a given [Drug] Ipeak is measured at V4. Ipeak[Drug]/Ipeak(no Drug) is plotted against time. You should indicate the desired number of repetitions of 6 voltage cycles (e1). Two columns in the external data file with any numerical values are required but not used. For each line in this external data file an extra data file will be read. Simulated data and experimental data from extra data file will be considered in the partial cost function.
+
+Are additionally asked:
+> "    t5 = " 
+> "    t6 = "
+> "    v5 = "
+> "    v6 = "
+> "    e1 = " 
+
+
+======= Protocol 4 ========
+This voltage protocol as well as Protocol 5 are used to study deactivation process. Current decay is measured at V3. Levmar optimization algorithm is used here to fit simulated data to experimental data. In this case double exponential functions were used with taufast and tauslow  with different weights.
+
+
+Are additionally asked:
+> "  Relation to Peak [0.95]= "
+> "  Number of data points [100]= "
+
+Two extra columns are read from data files here
+ 
+======= Protocol 5 ========
+Extra data file is needed for this protocol. In this case the fitting for deactivation at the chosen voltage is done by using the experimental tables as experimental data. 
+Same shape as protocol 4.
+
+
+======= Protocol 6 ========
+This protocol is used to study the V0.3 inactivation at the desired voltage, V0.3=I50ms/Ipeak is measured at V3.
+Same shape as protocol 4.
+
+
+
+****************
+*** Warnings ***
+****************
+
+Warnings, for example when a peak is not found can be shown in the output. 
+
+> "Report Warnings (on/off) [off]: "
+
+
+**************
+*** Errors ***
+**************
+
+Detailed description of internal errors can be displayed for debugging purposes.
+
+> "Debug Errors (on/off) [off]: "
+
+
+****************************
+*** Convergence Analysis ***
+****************************
+
+A convergence analysis can be done to determine if free variables are optimized or if variables are independent between each other. The first and second derivatives are numerically computed for the final values for each variable to build a matrix with the first and second derivatives components. The first derivatives provides information whether each variable is minimized for the total cost function and for the partial cost function for each protocol.
+The second derivative between two variables provide information on whether both variable is independent from each other. The second derivative of each variable itself show the quality of the convergence. If the convergence surface is flat means that different values gives similar cost function. This information is useful at the time of deciding if that variable is necessary or not for the current model under test.
+
+> "Convergence Analysis (on/off) [on]: "
+
+
+********************
+*** Optimization ***
+********************
+
+Free Variables can be optimized using PRAXIS algorithm.
+
+PRAXIS. Brent, R. 1973. Algorithms for Minimization without Derivatives. Prentice Hall, Upper Saddle River, NJ.
+
+The algorithm finds the variable that minimized the total cost function until values are converged at a defined convergence criteria.
+
+> "Optimize (on/off) [on]: "
+
+If optimization is enabled extra parameters are requested.
+
+Minimization Tolerance or Convergence criteria is needed:
+
+> "Minimization Tolerance [0.000001]: "
+
+The maximum value a variable is shifted for each step of the minimization is prompted:
+
+> "Maximum step size move for minimization [0.1]: "
+
+
+
+*********************
+*** Initial Guess ***
+*********************
+
+It is possible to make an initial search previous the optimization in case the initial values are not good start values for the optimization. Optimization sometimes is difficult to converge. This feature helps for the initial values search. The initial guess are searched in a Monte Carlo fashion way by trying different starting values and keeping the ones which provide the lowest total cost function. Initial values for free variables are not necessarily minimized using this method.
+
+There are two ways of generating initial values: 
+
+> "Use gaussian instead of uniform random number generator [off]: "
+
+1) One uses a Uniform Random Number Generator between a range of possible values. In the case this option is selected and the Lower and Upper Boundary were not defined or defined at infinite values. The remaining values will need to be inserted.
+
+> "  Define Lower Boundary for Variable #1"
+> "  Define Upper Boundary for Variable #1"
+
+2) The other uses a Gaussian Random Number Generator. The values are searched close to the initial value with a dispersion given but the standard deviation chosen later:
+
+> "Standard Deviation for Gaussian [0.1]: "
+
+Later, you need to provide the number of tries the method will try to generate optimal initial values:
+
+> "Number of Tries [1000]: "
+
+
+*********************
+*** Cost Function ***
+*********************
+
+The cost function is defined as the weighted summation of n partial cost functions (fi) obtained from each voltage protocol, n is the number of protocols included in the fit and w is the corresponding weight assigned.
+
+F=w1f1+w2f2+w3f3+….+wnfn
+
+
+******************************
+*** Input file preparation ***
+******************************
+
+Exactly the same response to each prompt can be introduced in a file that can be used as an input later on.
+Comments are can be introduced after the character #
+Input file must be complete. Here an example for executing such input file:
+
+ $ ./vgckimo < input.dat
+
+
+See tutorial for examples of input files.
+
+
+*****************************
+*** Standard Output Files ***
+*****************************
+
+For the initial (before the optimization) and final function evaluation, extra data is displayed in the standard output and written in different files.
+The name of the output file by default is ini__#_#.txt, end__#p_#d.txt where #p is the protocol number and #d is the data number order.
+
+iniPROTOCOLTYPENAME_#p_param.txt 
+endPROTOCOLTYPENAME_#p_param.txt 
+
+See tutorial for explanation and examples of output files.
+
+
+************************
+*** Print Extra Data ***
+************************
+
+Some protocols (3, 4 & 5) can output extra data which can be enabled with this option. Usually the data is just the time, current and voltage for the secuence of each protocol.
+This extra data is only computed for the initial values before the optimization or the final value. The name of the output file by default is ini_extra_#_#.txt, end_extra_#p_#d.txt
+#p is the protocol number and #d is the data number order.
+
+> "Print extra data (on/off) [off]: "
+
+

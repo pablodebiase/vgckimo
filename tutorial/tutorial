@@ -1,0 +1,135 @@
+## VGC-KiMo Tutorial ##
+
+This tutorial will guide you to learn how to prepare the necessary files to run VGC-KiMo simulations.
+The case example of fitting experimental data from four different voltaje protocol is presented in this tutorial. The experimental data used is from hERG K+ (isoform a) expressed in CHO cell line at room temperature (see Larsen A. P. et al, Pflugers Arch-Eur J Physiol (2008) 456:1137-1148). Two kinetic mechanisms are coded for IKr current (hERG K+). Mechanism 1 corresponds to the one proposed by Wang, Lu, Morales, Strauss and Rasmusson (WLMSR) (see Wang et al. J Physiol (1997) 502:45-60). Mechanism 2 corresponds to the one proposed by Mazhari, Greenstein, Winslow, Marban and Nuss (MGWMN) (see Mazhari et al. Circ. Res. (2001)89:33-38). For a performance of these two mechanims and others see Bett G. C. L. et al Biophys. J. 2011, 101:631-642. Initial values for mechanism 1 were taken from Fink et al.Prog. Biophys. Mol. Biol. (2008)96:357-376. Initial values for mechanism two were the originally published (see table 1 in Bett G. C. L. et al Biophys. J. 2011, 101:631-642).
+
+VGC-KiMo programs allows any kind of ion channel, mechanisms and voltage protocols. In the availble version you should modify the source code in order to change the ion-channel and mechanism.
+
+In order to get an understanding on how VGC-KiMo works, consult the original paper shown below. If you use VGC-KiMO, please, cite us.
+
+Laura. L. Perissinotti, Jiqing Guo, Pablo, M. De Biase, Colleen E. Clancy, Henry J. Duff and Sergei Y. Noskov. Biophys. J. (2015)108:1414-1424.
+
+For complete a description of VGC-KiMo usage, please refer to the "Documentation" section provided with the code tarball (freely available to download from http://noskovlab.com/downloads/vgckimo_v2015.04.23.tar.bz2)
+ 
+The software needed to follow this tutorial:
+ - VGC-KiMo (http://www.noskovlab.com or https://github.com/perissinotti/vgckimo or https://github.com/pablodebiase/vgckimo)
+ - QtiPlot (http://www.qtiplot.com/) or Xmgr (http://plasma-gate.weizmann.ac.il/Grace/)
+
+
+Recommended OS:
+ - Linux
+
+## Extract this tutorial
+        $ tar xvf vgckimo_v2015.04.23.tar.bz2
+        $ cd vgckimo/tutorial
+        $ vi tutorial
+
+
+## Install VGC-KiMo (in Linux)
+#       * GNU or Intel compilers must be installed
+	$ wget http://noskovlab.com/downloads/vgckimo_v2015.04.23.tar.bz2
+	$ tar xvf vgckimo_v2015.04.23.tar.bz2
+        $ cd vgckimo/src
+        $ ./vgckimo.make       # for GNU compilers or
+        $ ./vgckimo.make intel # for intel compilers
+
+
+
+## Prepare input files of interest. 
+
+$ cd vgckimo/tutorial/inputs_prep
+
+/example1: ##fit-4protocols from initial values##
+	This is a fitting from the published initial values, Mechanism 1,  all variables are free, using different boundaries. Same weights for the individual cost functions. 
+	
+/example2: ##fit-4protocols from ramdom generator (gaussian instead of uniform ramdom numbers genarator) around initial values##
+	All variables are free, using different boundaries.Same weights for the individual cost functions. 
+
+/example3: ##fit-4protocols from ramdom generator (gaussian instead of uniform ramdom numbers genarator) around initial values##
+	All variables are free, using different boundaries. Different weights for the individual cost functions.	
+	
+/example4: ##fit-4protocols from pre-fitted values##
+	This is a fitting from already fitted values, all variables are free, using different boundaries. Same weights for the individual cost functions. 
+
+/example5: ##fit-4protocols from randon generated numbers around the pre-fitted values & Different weights##
+	This is a fitting from already fitted values, all variables are free, using different boundaries. Different weights for the individual cost functions. 
+	
+	
+	Files to include in the fittings:
+	-data_cho_isoa.txt (from SSA protocol: Voltages, I/Imax)
+	-data_cho_ssi_isoa.dat(from SSI protocol:Voltages, I/Imax)
+	-act_cho_isoa.txt (from envelopes of tails protocol: time (ms), Normalized Current)
+	-dataDEACdouble_isoa.txt (Voltage, taufast, tauslow, Afast/(Afast+Aslow))
+	
+## Input sample: see input_sample.png for an explanation of the inputs components.	
+
+## Run current inputs in VGC-KiMo ##
+        
+	To run the example:
+	$ vgckimo/bin/vgckimo-intel < inputisoa_new.inp > inputisoa_new.out
+or
+	$ OMP_NUM_THREADS=4 vgckimo/bin/vgckimo-intel < inputisoa_new.inp > inputisoa_new.out
+
+        Note that there is not much higher perfonmance beyond 8 nodes.
+
+## Other specific examples ##
+
+	In addition to the current examples, you can also run simulations and fits using the alternative mechanim (Option 2).
+	
+/example6: ##fit-4protocols from initial values, Mechanism Option 2##
+	This is a fitting from published values, all variables are free, using different boundaries. Same weight for the individual cost functions.Gaussian ramdom generator values was used. 
+	
+	
+	
+##Output files
+
+$ cd vgckimo/tutorial/outputs_runs
+
+You will find all the output files for each exmaple.
+
+Intial files:
+iniSSA-I_#0_param.txt  (voltage, Simulated, Exptl.)
+iniSSA-I_#1_param.txt  (voltage, Simulated, Exptl.)  
+iniACT_#2_param.txt    (time, Simulated, Exptl.)
+iniDEACdouble_#3_param.txt (Voltage, rmsd-simulated, rmsd-Explt.)
+ini__3_x.txt (x corresponds to different voltages: time, Simulated curve, Exptl. curve for deactivation decay)
+
+Currents traces:
+ini__0_x.txt (0=SSA protocol, x corresponds to different voltages)
+ini__1_x.txt (1=SSI protocol, x corresponds to different voltages)
+ini__2_x.txt (2=Activation protocol, x correspondts to diferent times)
+ini_extra_3_x.txt (3=Deactivation protocol, x corresponds to different voltages)
+
+End files (After minimization):
+
+endSSA-I_#0_param.txt 
+endSSA-I_#1_param.txt
+endACT_#2_param.txt  
+endDEACdouble_#3_param.txt 
+end__3_x.txt
+Current traces:
+end__0_x.txt
+end__1_x.txt
+end__2_x.txt
+end_extra_3_x.txt
+
+
+	
+## Analyzing and Visualizing resutls ##
+
+$ cd vgckimo/tutorial/example4_performance
+	
+	Open with QtiPlot the qti files
+	( For Debian/Ubuntu install QTIPLOT: $ sudo apt-get install qtiplot )
+
+	$ qtiplot example4_performance.qti
+You will see the experimental data and simulated data after the fitting for the four voltage protocols included.
+
+	$ qtiplot example4_currentsSSA.qti
+You will see the simulated currents after the fitting for the SSA protocol.
+	
+
+For your conveniece all otputs are also in png format.
+
+
+

@@ -1,0 +1,116 @@
+0.00001                     #tolerance
+0.1                         #size move for minimization
+1                           #model
+0.0                         #Cell I  [ 0.0 ]
+0.0                         #Cell C2 [ 0.0 ]
+1.0                         #Cell C3 [ 1.0 ]
+0.0                         #Cell O  [ 0.0 ]
+14                          #Number of Variables to Fit [14]
+1                           #Initial values              
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+y                           #Keep all Variables free (y/n)? [y]
+y                           #Enable restrains for free variables (y/n)? [n]
+0.8                         #lower boundary [-inf]
+2                           #upper boundary [+inf]
+0.8
+2
+0.8
+2
+0.8
+2
+0.8
+2
+0.8
+2
+0.8
+2
+0.8
+2
+0.8
+2
+0.8
+2
+0.1
+10
+0.1
+10
+0.1
+10
+0.1
+10
+4                           #Number of protocols to use
+0                           #SSA  
+data_cho_isoa.txt           #Experimental Data file name
+0.005                       #time step//Input parameter for SSA//range of voltages for V3 are read from datafile
+10000                       #waittime (t1)
+1000                        #t2 (ms)
+1000                        #t3 time
+500                         #t4 time
+-80                         #Resting potential (V1)
+-80                         #voltage (V2)
+0                           #V3 from file
+-60                         #V4 voltage 
+0                           #Drug
+1                           #weight
+0                           #SSI
+data_cho_ssi_isoa.dat     #Experimental Data file name
+0.005                       #time step//Input parameter for SSI//range of voltages for V3 are read from datafile
+10000                       #waittime (t1)
+1000                        #t2 (ms)
+10                          #t3 time 
+1000                        #t4 time 
+-80                         #Resting potential (V1)
+40                          #V2 voltage 
+0                           #V3 from file
+40                          #V4 voltage 
+0                           #Drug
+1                           #weight
+1                           #Activation tau
+act_cho_isoa.txt            #Experimental Data file name
+0.005                       #time step//Input parameter for ACT//
+10000                       #waittime (t1)
+1000                        #t2 peak measurement
+500                         #t3 time 
+500                         #t4 time 
+-80                         #Resting potential (V1)
+40                          #V2 voltage (variable length)
+-60                         #V3 voltage 
+-60                         #V4 voltage 
+0                           #Drug
+5                           #weight
+4                           #DEACTdouble
+dataDEACdouble_isoa.txt     #Experimental Data file name
+0.005                       #time step//Input parameter for DEACTdouble//
+10000                       #waittime (t1)
+1000                        #t2 (ms)
+5                           #t3 time 
+4000                        #t4 time 
+-80                         #Resting potential (V1)
+40                          #V2 voltage 
+-120                        #V3 voltage 
+-80                         #V4 voltage (V4) from input table
+0                           #Drug
+10                          #weight
+0.95                        #Relation to peak
+100                         #Number of points
+off                         #Warnings
+off                         #Debug Errors (on/off) [off]
+on                          #Convergence Analysis (on/off) [on]
+on                          #Optimize (on/off) [on] 
+on                          #Generate initial values
+on                          #generate extra data
+on                          #gaussian for initial values
+0.1                         #sd
+1000                        #number of tries

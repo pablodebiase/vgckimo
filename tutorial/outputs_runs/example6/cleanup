@@ -1,0 +1,6 @@
+#!/bin/bash
+rm end*.txt ini*.txt *.o*
+
+exit 0;
+
+                                                     
