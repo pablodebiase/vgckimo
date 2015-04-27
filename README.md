@@ -19,7 +19,7 @@ If you use this program please site us:
 
 Folders
 -------
-doc      - Documentation, license, figures, release
-src      - Sources and compiler script
-bin      - binary files
-tutorial - Examples, test and tutorial document
+- doc      - Documentation, license, figures, release
+- src      - Sources and compiler script
+- bin      - binary files
+- tutorial - Examples, test and tutorial document
